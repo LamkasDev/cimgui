@@ -8,8 +8,10 @@ OBJS += ./imgui/imgui_draw.o
 OBJS += ./imgui/imgui_demo.o
 OBJS += ./imgui/imgui_tables.o
 OBJS += ./imgui/imgui_widgets.o
+OBJS += ./imgui/backends/imgui_impl_sdl2.o
+OBJS += ./imgui/backends/imgui_impl_opengl3.o
 
-CXXFLAGS=-O2 -fno-exceptions -fno-rtti
+CXXFLAGS=-O2 -fno-exceptions -fno-rtti -fno-threadsafe-statics -DCIMGUI_USE_OPENGL3 -DCIMGUI_USE_SDL2 -DIMGUI_IMPL_API="extern \"C\""
 
 UNAME_S := $(shell uname -s)
 
@@ -19,7 +21,7 @@ ifeq ($(UNAME_S), Linux) #LINUX
 	ECHO_MESSAGE = "Linux"
 
 	OUTPUTNAME = cimgui.so
-	CXXFLAGS += -I./imgui/
+	CXXFLAGS += -I./imgui/ -I../SDL/include
 	CXXFLAGS += -Wall
 	CXXFLAGS += -shared -fPIC
 	CFLAGS = $(CXXFLAGS)
@@ -39,7 +41,7 @@ ifeq ($(OS), Windows_NT)
 	ECHO_MESSAGE = "Windows"
 
 	OUTPUTNAME = cimgui.dll
-	CXXFLAGS += -I./imgui/
+	CXXFLAGS += -I./imgui/ -I../SDL/include
 	CXXFLAGS += -Wall
 	CXXFLAGS += -shared
 	LINKFLAGS = -limm32
