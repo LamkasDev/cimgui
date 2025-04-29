@@ -20,7 +20,7 @@ AR := ar -rc
 ifeq ($(UNAME_S), Linux) #LINUX
 	ECHO_MESSAGE = "Linux"
 
-	OUTPUTNAME = cimgui.so
+	OUTPUTNAME = libcimgui.so
 	CXXFLAGS += -I./imgui/ -I../SDL/include
 	CXXFLAGS += -Wall
 	CXXFLAGS += -shared -fPIC
